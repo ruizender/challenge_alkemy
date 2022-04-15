@@ -1,6 +1,13 @@
 module Api
   module V1
       class MoviesController < V1Controller
+        before_action :find_movie, only: [:destroy, :update]
+
+        def index
+          @movie = Movie.pluck(:image,:title, :creation_date)
+          render json: @movie
+        end
+
         def create
           @movie = Movie.new(movie_params)
           if @movie.save
