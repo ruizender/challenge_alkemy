@@ -1,4 +1,4 @@
 class Character < ApplicationRecord
-  has_many :movies
-  belongs_to :movie
+  has_many :character_movies
+  has_many :movies, through: :character_movies
 end

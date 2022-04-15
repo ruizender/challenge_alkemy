@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_14_033849) do
+ActiveRecord::Schema.define(version: 2022_04_15_204630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "character_movies", force: :cascade do |t|
+    t.bigint "character_id"
+    t.bigint "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_movies_on_character_id"
+    t.index ["movie_id"], name: "index_character_movies_on_movie_id"
+  end
 
   create_table "characters", force: :cascade do |t|
     t.string "image"
@@ -21,7 +30,6 @@ ActiveRecord::Schema.define(version: 2022_04_14_033849) do
     t.integer "age"
     t.integer "weight"
     t.string "history"
-    t.string "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,7 +47,6 @@ ActiveRecord::Schema.define(version: 2022_04_14_033849) do
     t.string "title"
     t.date "creation_date"
     t.integer "score"
-    t.string "character_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,4 +58,6 @@ ActiveRecord::Schema.define(version: 2022_04_14_033849) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "character_movies", "characters"
+  add_foreign_key "character_movies", "movies"
 end

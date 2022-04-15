@@ -1,6 +1,12 @@
 module Api
   module V1
       class CharactersController < V1Controller
+        before_action :find_character, only: [:destroy, :update]
+        def index
+          @character = Character.pluck(:id,:image,:name)
+          render json: @character
+        end
+        
         
         def create
           @character = Character.new(character_params)
