@@ -1,10 +1,14 @@
 module Api
   module V1
       class CharactersController < V1Controller
-        before_action :find_character, only: [:destroy, :update]
+        before_action :find_character, only: [:destroy, :update, :show]
         def index
           @character = Character.pluck(:id,:image,:name)
           render json: @character
+        end
+        
+        def show
+          render :json => @character.to_json(:include => :movies)
         end
         
         

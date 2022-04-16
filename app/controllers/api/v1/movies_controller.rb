@@ -1,11 +1,15 @@
 module Api
   module V1
       class MoviesController < V1Controller
-        before_action :find_movie, only: [:destroy, :update]
+        before_action :find_movie, only: [:destroy, :update, :show]
 
         def index
           @movie = Movie.pluck(:image,:title, :creation_date)
           render json: @movie
+        end
+
+        def show
+          render :json => @movie.to_json(:include => :characters)
         end
 
         def create
