@@ -11,6 +11,7 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
+          UserNotifierMailer.send_signup_email(user).deliver
           render json: user.as_json(json_options)
         else
           render json: { status: :bad, errors: user.errors.messages }
