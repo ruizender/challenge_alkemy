@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < V1Controller
+      
       skip_before_action :authenticate!, only: :create
 
       def index
@@ -11,17 +12,17 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          UserNotifierMailer.send_signup_email(user).deliver
           render json: user.as_json(json_options)
+          user.send_email
         else
           render json: { status: :bad, errors: user.errors.messages }
         end
       end
-    
+
       private
     
       def user_params
-        params.require(:user).permit(:email, :password)
+        params.require(:user).permit(:name, :username, :email, :password_digest)
       end
     
       def json_options

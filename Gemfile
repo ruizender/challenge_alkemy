@@ -16,11 +16,11 @@ gem 'puma', '~> 3.11'
 # Use ActiveModel has_secure_password
 gem 'jwt'
 gem 'bcrypt', '~> 3.1.7'
-gem 'sendgrid-ruby'
 gem 'figaro'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
-
+gem 'sendgrid-ruby'
+gem "net-http"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
