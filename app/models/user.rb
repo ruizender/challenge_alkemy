@@ -11,7 +11,7 @@ class User < ApplicationRecord
     from = Email.new(email: 'ruiz.valera@gmail.com')
     to = Email.new(email: user_email)
     subject = "Successful registration"
-    content = Content.new(type: 'text/plain', value: "Welcome to our disney characters API,\n\nThanks for registering")
+    content = Content.new(type: 'text/plain', value: "Hello, Welcome to our disney characters API,\n\nThanks for registering")
     mail = Mail.new(from, subject, to, content)
     key = ENV['SENDGRID_API_KEY']
     sg = SendGrid::API.new(api_key: "#{key}")
