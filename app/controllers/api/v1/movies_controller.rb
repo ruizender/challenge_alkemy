@@ -4,9 +4,21 @@ module Api
         before_action :find_movie, only: [:destroy, :update, :show]
 
         def index
-          @movie = Movie.pluck(:image,:title, :creation_date)
-          render json: @movie
+          render json: json_structure_index(Movie.all())
         end
+
+        def json_structure_index(movies)
+          movies_array = []
+          movies.each do |movie|
+              hash = {}
+              hash['image'] = movie.image
+              hash['title'] = movie.title
+              hash['creation_date'] = movie.creation_date
+              movies_array.push(hash)
+          end
+          movies_array
+        end
+
 
         def show
           render :json => @movie.to_json(:include => :characters)
@@ -29,16 +41,23 @@ module Api
           end
       end
 
+      def search_movies
+        search = Movie.find_by_title(params[:title])
+        render json: search
+      end
+
+
       def destroy
           @movie.destroy
           render json: "movie was successfully destroyed."
       end
+
       private
 
       def find_movie
         @movie = Movie.find(params[:id])
       end
-
+      
       def movie_params
         params.require(:movie).permit(:image, :title, :creation_date, :score, {character_ids:[]})        
       end

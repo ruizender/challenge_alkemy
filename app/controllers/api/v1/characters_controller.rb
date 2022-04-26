@@ -2,12 +2,24 @@ module Api
   module V1
       class CharactersController < V1Controller
         before_action :find_character, only: [:destroy, :update, :show]
+      
         def index
-          @character = Character.pluck(:id,:image,:name)
-          render json: @character
+          render json: json_structure_index(Character.all())
+        end
+
+        def json_structure_index(characters)
+          characters_array = []
+          characters.each do |character|
+              hash = {}
+              hash['image'] = character.image
+              hash['name'] = character.name
+              characters_array.push(hash)
+          end
+          characters_array
         end
         
         def show
+          @character = Character.find(params[:id])
           render :json => @character.to_json(:include => :movies)
         end
         
@@ -33,6 +45,12 @@ module Api
           @character.destroy
           render json: "Character was successfully destroyed."
       end
+
+      def search_characters
+        search = Character.find_by_name(params[:name])
+        render json: search
+      end
+
       private
 
       def find_character
