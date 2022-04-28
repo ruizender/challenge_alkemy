@@ -42,8 +42,23 @@ module Api
       end
 
       def search_movies
-        search = Movie.find_by_title(params[:title])
-        render json: search
+        if params[:title].present?
+          search = Movie.find_by(title:params[:title])
+        elsif params[:idGenero].present?
+          search = Movie.movie_genders.find_by(gender_id:params[:idGenero])
+        elsif params[:order].present?
+          if params[:order] == "ASC"
+            search = Movie.all.order(created_at: :asc)
+          end
+          if params[:order] == "DESC"
+            search = Movie.all.order(created_at: :desc)
+          end
+        end
+        if search
+          render json: search
+        else
+          render json: "No value to search"
+        end
       end
 
 

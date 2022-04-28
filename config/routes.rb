@@ -5,9 +5,11 @@ Rails.application.routes.draw do
         get :users, to: 'users#index'
         post :login, to: 'auth#create'
         get :characters, to: 'characters#search_characters'
+        get :characters_list, to: 'characters#index'
+        resources :characters, only: [:show, :create, :update, :destroy]
+        get :movies_list, to: 'movies#index'        
         get :movies, to: 'movies#search_movies'
-        resources :characters, only: [:index, :show, :create, :update, :destroy]
-        resources :movies, only: [:index, :show, :create, :update, :destroy]
+        resources :movies, only: [:show, :create, :update, :destroy]
       end
   end
 end

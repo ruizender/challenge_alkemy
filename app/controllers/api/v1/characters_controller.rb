@@ -47,8 +47,20 @@ module Api
       end
 
       def search_characters
-        search = Character.find_by_name(params[:name])
-        render json: search
+        if params[:name].present?
+          search = Character.find_by_name(params[:name])
+        elsif params[:age].present?
+          search = Character.find_by(age:params[:age])
+        elsif params[:weight].present?
+          search = Character.find_by(weight:params[:weight])
+        elsif params[:idMovie].present?
+          search = Character.character_movies.find_by(movie_id:params[:idMovie])
+        end
+        if search
+          render json: search
+        else
+          render json: "No value to search"
+        end
       end
 
       private
