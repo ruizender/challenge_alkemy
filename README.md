@@ -1,24 +1,10 @@
-# README
+Disney World Movies API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Con ayuda de esta API podrás conocer películas y personajes del mundo Disney. Además de poder crear, eliminar y modificar sus participaciones de personajes en cada película . Tendrás que registrarte y luego iniciar sesión para hacer uso de ella.
 
-Things you may want to cover:
+Versiones de Ruby y Rails necesarias:
+ruby '2.6.3'
+Rails '5.2.6'
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Postman: 
+https://documenter.getpostman.com/view/15088477/UyrEguDg
